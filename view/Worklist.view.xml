@@ -1,0 +1,87 @@
+<mvc:View controllerName="com.baba.ZMM_MRFPAL.controller.Worklist" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout"
+	xmlns:core="sap.ui.core" xmlns:semantic="sap.m.semantic" xmlns="sap.m" xmlns:f="sap.ui.layout.form">
+	<semantic:FullscreenPage id="page" title="MRF-Pallet Second Weight" busy="{objectView>/busy}" showNavButton="false">
+		<semantic:content>
+			<f:SimpleForm title="Pallet" layout="ResponsiveGridLayout" editable="true" labelSpanL="3" labelSpanM="3" emptySpanL="3" emptySpanM="3"
+				columnsL="1" columnsM="1">
+				<HBox>
+					<!--<l:VerticalLayout>-->
+					<Input width="auto" id="PALLETV" required="true" type="Number"/>
+					<Button ariaLabelledBy="__xmlview0--label1" text="Press" width="auto" id="button2" press="onGet"/>
+					<!--</l:VerticalLayout>-->
+				</HBox>
+			</f:SimpleForm>
+			<Panel expandable="true" expanded="false" backgroundDesign="Solid">
+				<f:SimpleForm title="Delivery Details:" layout="ResponsiveGridLayout" editable="false" labelSpanL="2" labelSpanM="2" emptySpanL="1"
+					emptySpanM="1" columnsL="1">
+					<Label text="Delivery"/>
+					<Text id="VBELN" text="{VBELN}" width="auto"/>
+					<Label text="Item"/>
+					<Text id="POSNR" text="{POSNR}" width="auto"/>
+					<Label text="Material"/>
+					<Text id="MATNR" text="{MATNR}" width="auto"/>
+					<Label text="Batch"/>
+					<Text id="BATCH" text="{BATCH}" width="auto"/>
+					<Label text="Pallet"/>
+					<Text id="PALLET" text="{PALLET}" width="auto"/>
+					<Label text="Printer" required="true"/>
+					<ComboBox id="oSelect1" items="{ path: '/data' }" width="40%">
+						<core:Item key="{PRINTERN}" text="{PRINTERN}"/>
+					</ComboBox>
+				</f:SimpleForm>
+			</Panel>
+			<Table id="tab" noDataText="No Pallet found" items="{/data}" growing="true" mode="MultiSelect" growingScrollToLoad="true"
+				fixedLayout="false" width="100%">
+				<columns>
+					<!--<Column id="PALLETC" hAlign="Center" visible="false">-->
+					<!--	<header>-->
+					<!--		<Label text="Pallet" id="__label1"/>-->
+					<!--	</header>-->
+					<!--</Column>-->
+					<Column id="NOBAGC" hAlign="Center" minScreenWidth="Small" demandPopin="true" popinDisplay="Inline">
+						<header>
+							<Label text="No. of Bags" id="__label2"/>
+						</header>
+					</Column>
+					<Column id="FWEIGHTC" hAlign="Center" minScreenWidth="Small" demandPopin="true" popinDisplay="Inline">
+						<header>
+							<Label text="1st Weight" id="__label3"/>
+						</header>
+					</Column>
+					<Column id="SWEIGHTC" hAlign="Center">
+						<header>
+							<Label text="2nd Weight" id="__label4"/>
+						</header>
+					</Column>
+					<Column id="PWEIGHTC" hAlign="Center" minScreenWidth="Small" demandPopin="true" popinDisplay="Inline">
+						<header>
+							<Label text="Pallet Weight" id="__label5"/>
+						</header>
+					</Column>
+					<Column id="BWEIGHTC" hAlign="Center" minScreenWidth="Small" demandPopin="true" popinDisplay="Inline">
+						<header>
+							<Label text="Bag Weight" id="__label6"/>
+						</header>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem id="itemlist">
+						<cells>
+							<!--<Input id="PALLETV" value="{Pallet}" textAlign="Left" width="auto" editable="false"/>-->
+							<Input id="NOBAG" value="{Nobag}" textAlign="Right" editable="false" width="auto" type="Number"/>
+							<Input id="FWT" value="{Fweight}" textAlign="Right" editable="false" width="auto" type="Number"/>
+							<Input id="SWT" value="{Sweight}" textAlign="Right" editable="true" width="auto" type="Number" change="onCal"/>
+							<Input id="PWT" value="{Pweight}" textAlign="Right" editable="false" width="auto" type="Number"/>
+							<Input id="BWT" value="{Bagwt}" textAlign="Right" width="auto" editable="false"/>
+							<Input id="CHARG" value="{Charg}" textAlign="Right" width="auto" editable="false"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</semantic:content>
+		<semantic:customFooterContent>
+			<Button ariaLabelledBy="__xmlview0--label1" width="50px" id="button6" press="onPri" icon="sap-icon://print"/>
+			<Button ariaLabelledBy="__xmlview0--label1" width="50px" id="button1" press="onSave" tooltip="{i18n>Save}" icon="sap-icon://save"/>
+		</semantic:customFooterContent>
+	</semantic:FullscreenPage>
+</mvc:View>
