@@ -90,9 +90,11 @@ sap.ui.define([
 			var oRow = oControlEvent.getSource().getParent();
 			var NUM_DECIMAL_PLACES = 3;
 			var aCells = oRow.getCells();
+
 			if (aCells.length > 0) {
 				//var colnwt;
 				var colswt = aCells[3]._lastValue;
+				//var colswt = aCells[3].getValue();
 				if (colswt === "") {
 					colswt = "0.000";
 				}
@@ -221,12 +223,15 @@ sap.ui.define([
 							var itemRow = {
 								// Pallet: res.Pallet,
 								Fweight: res.Fweight,
-								Sweight: res.Sweight,
+								//Sweight: res.Sweight,
 								Bagwt: res.Bagwt,
 								Pweight: res.Pweight,
 								Nobag: res.Nobag,
 								Charg: res.Charg
 							};
+							if (res.Sweight > 0) {
+								itemRow.Sweight = res.Sweight;
+							}
 							var val = res.MATNR + "-" + res.MAKTX;
 							that.getView().byId("VBELN").setText(res.VBELN);
 							that.getView().byId("POSNR").setText(res.POSNR);
@@ -358,6 +363,10 @@ sap.ui.define([
 					// var l_bwt = oModel.getProperty("Bagwt", aItems[iRowIndex].getBindingContext());
 					// var l_char = oModel.getProperty("Charg", aItems[iRowIndex].getBindingContext());
 
+					if (l_Swt === "") {
+						l_Swt = "0.000";
+					}
+
 					var nval = Number(l_Swt);
 
 					if (nval < 0) {
@@ -371,7 +380,6 @@ sap.ui.define([
 						Sweight: l_Swt
 							// BagWt: l_bwt,
 							// Charg: l_char
-
 					});
 				}
 
@@ -389,6 +397,7 @@ sap.ui.define([
 						success: function (oData, oResponse) {
 							sap.m.MessageToast.show("Saved Successfully");
 							that.onBusyE(oBusy);
+							that.onblank(that);
 						},
 						error: function (oResponse) {
 							that.onBusyE(oBusy);
