@@ -398,6 +398,7 @@ sap.ui.define([
 							sap.m.MessageToast.show("Saved Successfully");
 							that.onBusyE(oBusy);
 							that.onblank(that);
+							that.getView().byId("PALLETV").setValue();
 						},
 						error: function (oResponse) {
 							that.onBusyE(oBusy);
